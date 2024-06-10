@@ -13,7 +13,7 @@
 <body>
     <section id="menu">
         <?php
-            if ($_SESSION["usuario"]=="admin") {
+            if ($_SESSION["tipo"]=="Administrador") {
                 include_once "app/views/sections/menulateral.php";
             } else {
                 include_once "app/views/sections/menulateraluser.php";
@@ -50,7 +50,7 @@
                                 <th>Código</th>
                                 <th>Alumno</th>
                                 <th>Padre</th>
-                                <th>parentezco</th>
+                                <th>Parentezco</th>
                                 <th>Fecha</th>
                                 <th>&nbsp;</th>
                             </thead>
@@ -86,7 +86,7 @@
                 <hr>
                 <form id="formPadrealumno" enctype="multipart/form-data">
                     <div class="row mb-3">
-                        <label for="parentesco" class="col-sm-2 col-form-label">parentesco:</label>
+                        <label for="parentesco" class="col-sm-2 col-form-label">Parentesco:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="parentesco" name="parentesco" required>
                             <input type="hidden" name="id_padre_alumno" id="id_padre_alumno" value="0">

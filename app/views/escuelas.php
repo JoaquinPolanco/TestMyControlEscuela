@@ -13,7 +13,7 @@
 <body>
     <section id="menu">
         <?php
-            if ($_SESSION["usuario"]=="admin") {
+            if ($_SESSION["tipo"]=="Administrador") {
                 include_once "app/views/sections/menulateral.php";
             } else {
                 include_once "app/views/sections/menulateraluser.php";
@@ -48,12 +48,12 @@
                             <thead class="table-dark">
                                 <th>Código</th>
                                 <th>Nombre</th>
-                                <th>direccion</th>
-                                <th>email</th>
-                                <th>latitud</th>
-                                <th>longitud</th>
+                                <th>Direccion</th>
+                                <th>Email</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>
                                 <th>Fecha</th>
-                                <th>usuario</th>
+                                <th>Usuario</th>
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody>
@@ -110,19 +110,19 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="direccion" class="col-sm-2 col-form-label">direccion:</label>
+                        <label for="direccion" class="col-sm-2 col-form-label">Direccion:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="direccion" name="direccion" required>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="email" class="col-sm-2 col-form-label">email:</label>
+                        <label for="email" class="col-sm-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="email" name="email" required>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="id_usr" class="col-sm-2 col-form-label">usuario:</label>
+                        <label for="id_usr" class="col-sm-2 col-form-label">Usuario:</label>
                         <div class="col-sm-10">
                             <select name="id_usr" id="id_usr" class="form-select">
                             </select>
@@ -135,13 +135,13 @@
                         </div>
                     </div>          
                     <div class="row mb-3">
-                        <label for="latitud" class="col-sm-2 col-form-label">latitud:</label>
+                        <label for="latitud" class="col-sm-2 col-form-label">Latitud:</label>
                         <div class="col-sm-10">
                             <input type="text"  class="form-control" id="latitud" name="latitud" required>
                         </div>
                     </div> 
                     <div class="row mb-3">
-                        <label for="longitud" class="col-sm-2 col-form-label">longitud:</label>
+                        <label for="longitud" class="col-sm-2 col-form-label">Longitud:</label>
                         <div class="col-sm-10">
                             <input type="text"  class="form-control" id="longitud" name="longitud" required>
                         </div>
@@ -170,14 +170,12 @@
                 zoom: 8
             });
 
-            // Agregar un marcador al hacer clic en el mapa
             marcador = new google.maps.Marker({
                 position: { lat: 0, lng: 0 },
                 map: mapa,
                 draggable: true
             });
 
-            // Actualizar la posición del marcador cuando se arrastra
             marcador.addListener('dragend', function (event) {
                 actualizarPosicion(event.latLng.lat(), event.latLng.lng());
             });
@@ -191,11 +189,9 @@
         function guardarCoordenadas() {
             var latitud = marcador.getPosition().lat();
             var longitud = marcador.getPosition().lng();
-            // Aquí puedes hacer lo que quieras con las coordenadas, como enviarlas a tu servidor
             console.log("Latitud:", latitud);
             console.log("Longitud:", longitud);
         }
-
     </script>
 </body>
 </html>

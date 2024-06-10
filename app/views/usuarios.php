@@ -13,7 +13,7 @@
 <body>
     <section id="menu">
         <?php
-            if ($_SESSION["usuario"]=="admin") {
+            if ($_SESSION["tipo"]=="Administrador") {
                 include_once "app/views/sections/menulateral.php";
             } else {
                 include_once "app/views/sections/menulateraluser.php";

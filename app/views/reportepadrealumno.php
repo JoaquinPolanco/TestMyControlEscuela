@@ -13,7 +13,7 @@
 <body>
     <section id="menu">
         <?php
-            if ($_SESSION["usuario"]=="admin") {
+            if ($_SESSION["tipo"]=="Administrador") {
                 include_once "app/views/sections/menulateral.php";
             } else {
                 include_once "app/views/sections/menulateraluser.php";
@@ -24,7 +24,7 @@
         <h4 class="welcomestext text-end">Bienvenido/a: <?php echo $_SESSION["nuser"]; ?> </h4>
     </div>
     <div class="content">
-        <h2>Reportes de Alumnos-padres</h2>
+        <h2>Reportes de Alumnos-Padres</h2>
         <br>
         <section id="contenido">
             <form class="row gy-2 gx-3 align-items-center mt-3 mb-3">

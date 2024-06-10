@@ -13,7 +13,7 @@
 <body>
     <section id="menu">
         <?php
-            if ($_SESSION["usuario"]=="admin") {
+            if ($_SESSION["tipo"]=="Administrador") {
                 include_once "app/views/sections/menulateral.php";
             } else {
                 include_once "app/views/sections/menulateraluser.php";
@@ -48,7 +48,7 @@
                         <table class="table">
                             <thead class="table-dark">
                                 <th>ID Secciones</th>
-                                <th>Nombre de la nSeccion</th>
+                                <th>Nombre de la Seccion</th>
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody>
