@@ -24,9 +24,7 @@ eventListiners();
 function eventListiners() {
     btnNew.addEventListener("click",agregarEscuela);
     btnCancelar.addEventListener("click",cancelarEscuela);
-    //console.log("Antes de cargar");
     document.addEventListener("DOMContentLoaded",cargarDatos);
-    //console.log("Despues de cargar");
     searchText.addEventListener("input",aplicarFiltro);
     formEscuela.addEventListener("submit",guardarEscuela);
     divFoto.addEventListener("click",agregarFoto);
@@ -53,10 +51,8 @@ function agregarFoto() {
 function guardarEscuela(event) {
     event.preventDefault();
     const formData=new FormData(formEscuela);
-    //console.log(formData);
     API.post(formData,"escuela/save").then(
         data=>{
-            //console.log(data.msg);
             if (data.success) {
                 cancelarEscuela();
                 Swal.fire({
@@ -81,7 +77,6 @@ function guardarEscuela(event) {
 function cargarDatos() {
     API.get("escuela/getAll").then(
         data=>{
-            //console.log(data.records);
             if (data.success) {
                 objDatos.records=data.records;
                 objDatos.currentPage=1;
@@ -124,9 +119,7 @@ function cargarUsuarios() {
 
 
 function crearPaginacion() {
-    //Borrar elementos
     pagination.innerHTML="";
-    //Boton Anterior
     const elAnterior=document.createElement("li");
     elAnterior.classList.add("page-item");
     elAnterior.innerHTML=`<a class="page-link" href="#">Previous</a>`;
@@ -135,7 +128,6 @@ function crearPaginacion() {
         crearTabla();
     }
     pagination.append(elAnterior);
-    //Agregando los numeros de pagina
     const totalPage=Math.ceil(objDatos.recordsFilter.length/objDatos.recordsShow);
     for (let i=1; i<=totalPage;i++) {
         const el=document.createElement("li");
@@ -147,7 +139,6 @@ function crearPaginacion() {
         }
         pagination.append(el);
     }
-    //Boton siguiente
     const elSiguiente=document.createElement("li");
     elSiguiente.classList.add("page-item");
     elSiguiente.innerHTML=`<a class="page-link" href="#">Next</a>`;
@@ -217,7 +208,6 @@ function crearTabla() {
             }
         }
     );
-    //console.log(html);
     tableContent.innerHTML=html;
     crearPaginacion(); 
 }
@@ -230,7 +220,6 @@ function editarEscuela(id) {
         data=>{
             if (data.success) {
                 mostrarDatosForm(data.records[0]);
-                // Obtener las coordenadas del registro y actualizar el marcador en el mapa
                 const { latitud, longitud } = data.records[0];
                 actualizarMarcadorMapa(parseFloat(latitud), parseFloat(longitud));
             } else {
@@ -322,18 +311,46 @@ function mostrarDatosForm(record) {
     document.querySelector("#id_usr").value=id_usr;
     divFoto.innerHTML=`<img src="${foto}" class="h-100 w-100" style="object-fit:contain;">`;
 
-    // Actualizar la posición del marcador en el mapa
     actualizarMarcadorMapa(parseFloat(latitud), parseFloat(longitud));
 }
 
 function actualizarMarcadorMapa(latitud, longitud) {
-    // Asegúrate de que el mapa y el marcador estén inicializados
     if (mapa && marcador) {
-        // Actualiza la posición del marcador
         var nuevaPosicion = new google.maps.LatLng(latitud, longitud);
         marcador.setPosition(nuevaPosicion);
 
-        // Centra el mapa en la nueva posición del marcador
         mapa.setCenter(nuevaPosicion);
     }
+}
+
+var mapa;
+var marcador;
+
+function initMap() {
+    mapa = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 0, lng: 0 },
+        zoom: 8
+    });
+
+    marcador = new google.maps.Marker({
+        position: { lat: 0, lng: 0 },
+        map: mapa,
+        draggable: true
+    });
+
+    marcador.addListener('dragend', function (event) {
+        actualizarPosicion(event.latLng.lat(), event.latLng.lng());
+    });
+}
+
+function actualizarPosicion(latitud, longitud) {
+    document.getElementById('latitud').value = latitud;
+    document.getElementById('longitud').value = longitud;
+}
+
+function guardarCoordenadas() {
+    var latitud = marcador.getPosition().lat();
+    var longitud = marcador.getPosition().lng();
+    console.log("Latitud:", latitud);
+    console.log("Longitud:", longitud);
 }

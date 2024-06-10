@@ -160,38 +160,6 @@
     <?php include_once "app/views/sections/scripts.php"; ?>
     <script src="<?php echo URL;?>public_html/customjs/escuela.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPKvPHu2qiRwMbrwzolMEjzLP7RIRnU0I&callback=initMap" async defer></script>
-    <script>
-        var mapa;
-        var marcador;
-
-        function initMap() {
-            mapa = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 0, lng: 0 },
-                zoom: 8
-            });
-
-            marcador = new google.maps.Marker({
-                position: { lat: 0, lng: 0 },
-                map: mapa,
-                draggable: true
-            });
-
-            marcador.addListener('dragend', function (event) {
-                actualizarPosicion(event.latLng.lat(), event.latLng.lng());
-            });
-        }
-
-        function actualizarPosicion(latitud, longitud) {
-            document.getElementById('latitud').value = latitud;
-            document.getElementById('longitud').value = longitud;
-        }
-
-        function guardarCoordenadas() {
-            var latitud = marcador.getPosition().lat();
-            var longitud = marcador.getPosition().lng();
-            console.log("Latitud:", latitud);
-            console.log("Longitud:", longitud);
-        }
-    </script>
+    
 </body>
 </html>
